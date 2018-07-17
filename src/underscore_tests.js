@@ -16,38 +16,85 @@ var _ = { };
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
   _.first = function(array, n) {
+    if (n) {
+      return array.slice(0,n)
+    } else {return array[0]}
   };
 
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
+    if (n) {
+      if (n > array.length) {
+        return array
+      } else {
+      return array.slice(array.length-n,array.length) }
+    } else {return array[array.length-1]}
   };
 
   // Call iterator(value, key, collection) for each element of collection.
   // Accepts both arrays and objects.
   _.each = function(collection, iterator) {
+    if (typeof collection === 'object') {
+      for(let x in collection ) {
+        iterator(collection[x], x, collection)
+      } } else if (typeof collection === 'array') {
+        for(let i = 0;i<collection.length;i++ ) {
+          iterator(collection[i],i,collection)
+        }
+      }
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
   _.indexOf = function(array, target){
+    for(let i = 0; i < array.length;i++) {
+      if (array[i] === target) {
+        return i
+      } 
+    } return -1
   };
 
   // Return all elements of an array that pass a truth test ('iterator' function argument)
   _.filter = function(collection, iterator) {
+    let arr = []
+    for(let i = 0;i<collection.length;i++){
+      if (iterator(collection[i])) {
+        arr.push(collection[i])
+      }
+    }
+    return arr
   };
 
   // Return all elements of an array that don't pass a truth test (the 'iterator' function argument)
   _.reject = function(collection, iterator) {
+    let arr = []
+    for(let i = 0;i<collection.length;i++){
+      if (!iterator(collection[i])) {
+        arr.push(collection[i])
+      }
+    }
+    return arr
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    let arr = []
+    for(let i = 0;i<array.length;i++) {
+      if(!arr.includes(array[i])){
+        arr.push(array[i])
+      }
+    } return arr
   };
 
 
   // Return the results of applying an iterator to each element.
   _.map = function(array, iterator) {
+    let arr = []
+    for(let i = 0;i<array.length;i++) {
+      arr.push(iterator(array[i]))
+    } 
+    return arr
   };
 
   // Takes an array of objects and returns and array of the values of
